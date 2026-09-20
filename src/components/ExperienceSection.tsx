@@ -1,6 +1,7 @@
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
 import { motion } from 'framer-motion';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const experiences = [
   {
@@ -31,6 +32,8 @@ const experiences = [
 ];
 
 export default function ExperienceSection() {
+  const { content } = usePortfolioContent();
+  const visibleExperiences = content.experiences;
   return (
     <section id="experience" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -46,7 +49,7 @@ export default function ExperienceSection() {
         </ScrollReveal>
 
         <div className="space-y-0">
-          {experiences.map((exp, i) => (
+          {visibleExperiences.map((exp, i) => (
             <ScrollReveal key={exp.index} delay={i * 0.1}>
               <div className="grid grid-cols-1 gap-6 border-t border-border py-12 md:grid-cols-12 md:gap-10 md:py-16">
                 {/* Index + period */}
@@ -88,7 +91,7 @@ export default function ExperienceSection() {
                   </ul>
                 </div>
               </div>
-              {i === experiences.length - 1 && (
+              {i === visibleExperiences.length - 1 && (
                 <div className="border-b border-border" />
               )}
             </ScrollReveal>

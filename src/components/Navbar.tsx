@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const navLinks = [
   { label: 'Work', href: '#work' },
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { content } = usePortfolioContent();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -37,7 +39,7 @@ export default function Navbar() {
             href="#top"
             className="font-display text-[15px] font-semibold tracking-tight text-primary transition-colors hover:text-accent"
           >
-            NAUSHIN HAYAT
+            {content.profile.name.toUpperCase()}
           </a>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -74,7 +76,7 @@ export default function Navbar() {
           >
             <div className="flex items-center justify-between px-6 py-4">
               <span className="font-display text-[15px] font-semibold tracking-tight text-primary">
-                NAUSHIN HAYAT
+                {content.profile.name.toUpperCase()}
               </span>
               <button
                 onClick={() => setMenuOpen(false)}

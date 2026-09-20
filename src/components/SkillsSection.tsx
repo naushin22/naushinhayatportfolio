@@ -1,5 +1,6 @@
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const skillClusters = [
   {
@@ -29,6 +30,8 @@ const skillClusters = [
 ];
 
 export default function SkillsSection() {
+  const { content } = usePortfolioContent();
+  const visibleSkillClusters = content.skills;
   return (
     <section id="skills" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -52,7 +55,7 @@ export default function SkillsSection() {
         </ScrollReveal>
 
         <div className="space-y-0">
-          {skillClusters.map((cluster, i) => (
+          {visibleSkillClusters.map((cluster, i) => (
             <ScrollReveal key={cluster.label} delay={i * 0.05}>
               <div className="grid grid-cols-1 gap-6 border-t border-border py-8 md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-3">

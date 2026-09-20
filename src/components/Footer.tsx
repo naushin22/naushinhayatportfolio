@@ -1,4 +1,5 @@
 import { ArrowUp } from 'lucide-react';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const footerLinks = [
   { label: 'Work', href: '#work' },
@@ -9,6 +10,7 @@ const footerLinks = [
 ];
 
 export default function Footer() {
+  const { content } = usePortfolioContent();
   return (
     <footer className="border-t border-border px-6 py-12 md:px-10">
       <div className="mx-auto max-w-editorial">
@@ -18,10 +20,10 @@ export default function Footer() {
               href="#top"
               className="font-display text-[15px] font-semibold tracking-tight text-primary transition-colors hover:text-accent"
             >
-              NAUSHIN HAYAT
+              {content.profile.name.toUpperCase()}
             </a>
             <p className="mt-2 font-body text-[12px] font-light text-muted">
-              Software Developer · Bhubaneswar, India
+              {content.profile.role} · {content.profile.location}
             </p>
           </div>
 

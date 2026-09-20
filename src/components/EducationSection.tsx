@@ -1,5 +1,6 @@
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const education = [
   {
@@ -17,6 +18,8 @@ const education = [
 ];
 
 export default function EducationSection() {
+  const { content } = usePortfolioContent();
+  const visibleEducation = content.education;
   return (
     <section id="education" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -32,7 +35,7 @@ export default function EducationSection() {
         </ScrollReveal>
 
         <div className="space-y-0">
-          {education.map((edu, i) => (
+          {visibleEducation.map((edu, i) => (
             <ScrollReveal key={edu.index} delay={i * 0.1}>
               <div className="grid grid-cols-1 gap-4 border-t border-border py-10 md:grid-cols-12 md:gap-10 md:py-14">
                 <div className="md:col-span-2">
@@ -54,7 +57,7 @@ export default function EducationSection() {
                   </p>
                 </div>
               </div>
-              {i === education.length - 1 && (
+              {i === visibleEducation.length - 1 && (
                 <div className="border-b border-border" />
               )}
             </ScrollReveal>

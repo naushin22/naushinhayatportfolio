@@ -13,6 +13,8 @@ import CurrentFocus from './components/CurrentFocus';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AdminPanel from './components/AdminPanel';
+import { PortfolioProvider } from './lib/PortfolioProvider';
 
 function ScrollProgress() {
   const { scrollYProgress } = useScroll();
@@ -27,7 +29,10 @@ function ScrollProgress() {
 }
 
 function App() {
+  const isAdmin = window.location.pathname.startsWith('/admin') || window.location.hash === '#admin';
   return (
+    <PortfolioProvider>
+      {isAdmin ? <AdminPanel /> : (
     <div className="relative min-h-screen bg-bg">
       <div className="grain-overlay" />
       <ScrollProgress />
@@ -48,6 +53,8 @@ function App() {
       </main>
       <Footer />
     </div>
+      )}
+    </PortfolioProvider>
   );
 }
 

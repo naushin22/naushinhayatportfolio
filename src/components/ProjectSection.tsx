@@ -4,6 +4,7 @@ import { Plus, Minus, ArrowUpRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
 import CVVisualization from './CVVisualization';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 interface Project {
   id: string;
@@ -119,6 +120,8 @@ const projects: Project[] = [
 ];
 
 export default function ProjectSection() {
+  const { content } = usePortfolioContent();
+  const visibleProjects = content.projects;
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
@@ -138,7 +141,7 @@ export default function ProjectSection() {
         </ScrollReveal>
 
         <div className="space-y-0">
-          {projects.map((project, i) => {
+          {visibleProjects.map((project, i) => {
             const isExpanded = expandedId === project.id;
             const isReversed = i % 2 === 1;
 
@@ -146,7 +149,7 @@ export default function ProjectSection() {
               <ScrollReveal key={project.id} delay={i * 0.1}>
                 <div
                   className={`border-t border-border py-12 md:py-16 ${
-                    i === projects.length - 1 ? 'border-b' : ''
+                    i === visibleProjects.length - 1 ? 'border-b' : ''
                   }`}
                 >
                   <div

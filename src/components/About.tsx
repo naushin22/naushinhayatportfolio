@@ -1,25 +1,14 @@
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
-
-const metadata = [
-  {
-    label: 'Location',
-    value: 'Bhubaneswar, India',
-  sub: 'Currently pursuing MCA at KIIT',
-  },
-  {
-    label: 'Education',
-    value: 'MCA — KIIT',
-    sub: 'Aug 2025 – Jun 2027',
-  },
-  {
-    label: 'Focus',
-    value: 'Software Development',
-    sub: 'AI/ML, Automation, Mobile',
-  },
-];
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 export default function About() {
+  const { content } = usePortfolioContent();
+  const metadata = [
+    { label: 'Location', value: content.profile.location, sub: 'Currently pursuing MCA at KIIT' },
+    { label: 'Education', value: content.education[0]?.degree ?? 'MCA', sub: content.education[0]?.period ?? '' },
+    { label: 'Focus', value: content.profile.role, sub: 'AI/ML, Automation, Mobile' },
+  ];
   return (
     <section id="about" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -32,26 +21,15 @@ export default function About() {
           <div className="md:col-span-8">
             <ScrollReveal>
               <h2 className="font-display text-[clamp(1.75rem,4vw,3.5rem)] font-medium leading-[1.1] tracking-tightest text-primary text-balance">
-                A developer who likes{' '}
-                <span className="italic font-light text-secondary">
-                  understanding how things work.
-                </span>
+                {content.profile.aboutTitle}
               </h2>
             </ScrollReveal>
 
             <ScrollReveal delay={0.15}>
               <div className="mt-10 max-w-2xl space-y-6">
-                <p className="font-body text-base font-light leading-[1.7] text-secondary md:text-lg">
-                  Currently pursuing a Master of Computer Applications at KIIT,
-                  I have built a foundation across programming, algorithms,
-                  databases, operating systems, software development, and
-                  applied machine learning.
-                </p>
-                <p className="font-body text-base font-light leading-[1.7] text-secondary md:text-lg">
-                  My experience has also taken me beyond application code into
-                  networking, Docker deployment, industrial automation, and
-                  hardware integration.
-                </p>
+                {content.profile.aboutBody.map((paragraph) => (
+                  <p key={paragraph} className="font-body text-base font-light leading-[1.7] text-secondary md:text-lg">{paragraph}</p>
+                ))}
               </div>
             </ScrollReveal>
           </div>

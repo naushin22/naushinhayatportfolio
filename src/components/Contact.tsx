@@ -2,8 +2,10 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 export default function Contact() {
+  const { content } = usePortfolioContent();
   return (
     <section id="contact" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -23,18 +25,17 @@ export default function Contact() {
 
             <ScrollReveal delay={0.15}>
               <p className="mt-8 max-w-xl font-body text-base font-light leading-relaxed text-secondary md:text-lg">
-                Open to software development opportunities, internships, and
-                collaborative projects. Reach out and I'll get back to you.
+                {content.contact.message}
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.25}>
               <motion.a
-                href="mailto:naushinhayat22@gmail.com"
+                href={`mailto:${content.contact.email}`}
                 whileHover={{ x: 4 }}
                 className="group mt-10 inline-flex items-center gap-3 font-display text-[clamp(1.5rem,3vw,2.5rem)] font-light tracking-tight text-primary transition-colors hover:text-accent"
               >
-                naushinhayat22@gmail.com
+                {content.contact.email}
                 <ArrowUpRight
                   size={28}
                   strokeWidth={1.5}
@@ -53,11 +54,11 @@ export default function Contact() {
                     Email
                   </span>
                   <a
-                    href="mailto:naushinhayat22@gmail.com"
+                    href={`mailto:${content.contact.email}`}
                     className="mt-2 flex items-center gap-2 font-body text-[14px] font-light text-secondary transition-colors hover:text-accent"
                   >
                     <Mail size={14} strokeWidth={1.5} />
-                    naushinhayat22@gmail.com
+                    {content.contact.email}
                   </a>
                 </div>
 
@@ -66,11 +67,11 @@ export default function Contact() {
                     Phone
                   </span>
                   <a
-                    href="tel:+919696752540"
+                    href={`tel:${content.contact.phone}`}
                     className="mt-2 flex items-center gap-2 font-body text-[14px] font-light text-secondary transition-colors hover:text-accent"
                   >
                     <Phone size={14} strokeWidth={1.5} />
-                    9696752540
+                    {content.contact.phone}
                   </a>
                 </div>
 
@@ -80,7 +81,7 @@ export default function Contact() {
                   </span>
                   <p className="mt-2 flex items-center gap-2 font-body text-[14px] font-light text-secondary">
                     <MapPin size={14} strokeWidth={1.5} />
-                    Bhubaneswar, India
+                    {content.contact.location}
                   </p>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Minus } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const faqs = [
   {
@@ -28,6 +29,8 @@ const faqs = [
 ];
 
 export default function FAQ() {
+  const { content } = usePortfolioContent();
+  const visibleFaqs = content.faqs;
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
@@ -45,7 +48,7 @@ export default function FAQ() {
         </ScrollReveal>
 
         <div className="mx-auto max-w-3xl space-y-0">
-          {faqs.map((faq, i) => (
+          {visibleFaqs.map((faq, i) => (
             <ScrollReveal key={i} delay={i * 0.05}>
               <div className="border-t border-border">
                 <button

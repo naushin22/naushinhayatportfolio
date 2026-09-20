@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 export default function Hero() {
+  const { content } = usePortfolioContent();
   const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
@@ -17,7 +19,7 @@ export default function Hero() {
         className="mx-auto flex w-full max-w-editorial items-center justify-between border-b border-border pb-6"
       >
         <span className="font-body text-[11px] font-medium uppercase tracking-wide-3 text-secondary">
-          Software Developer
+          {content.profile.role}
         </span>
         <span className="font-body text-[11px] font-medium uppercase tracking-wide-3 text-secondary">
           Portfolio / 2026
@@ -34,7 +36,7 @@ export default function Hero() {
         >
           <span className="h-px w-12 bg-accent" />
           <span className="font-body text-[11px] font-medium uppercase tracking-wide-3 text-accent">
-            Software Developer
+            {content.profile.role}
           </span>
         </motion.div>
 
@@ -45,7 +47,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.5, ease }}
             className="block"
           >
-            Building software
+            {content.profile.heroTitle[0]}
           </motion.span>
           <motion.span
             initial={{ opacity: 0, y: 30 }}
@@ -53,7 +55,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.65, ease }}
             className="block"
           >
-            systems that turn
+            {content.profile.heroTitle[1]}
           </motion.span>
           <motion.span
             initial={{ opacity: 0, y: 30 }}
@@ -61,8 +63,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.8, ease }}
             className="block"
           >
-            ideas into{' '}
-            <span className="italic font-light text-accent">working products.</span>
+            {content.profile.heroTitle[2]}
           </motion.span>
         </h1>
 
@@ -72,8 +73,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 1.0, ease }}
           className="mt-8 max-w-xl font-body text-base font-light leading-relaxed text-secondary md:text-lg"
         >
-          MCA postgraduate working across software development, AI/ML,
-          computer vision, automation, and mobile applications.
+          {content.profile.heroDescription}
         </motion.p>
 
         <motion.div
@@ -99,6 +99,17 @@ export default function Hero() {
           >
             GET IN TOUCH
           </a>
+          {content.resumeUrl && (
+            <a
+              href={content.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-2 font-body text-[13px] font-medium tracking-wide text-secondary transition-colors hover:text-accent"
+            >
+              DOWNLOAD RESUME
+              <ArrowUpRight size={16} strokeWidth={1.5} />
+            </a>
+          )}
         </motion.div>
       </div>
 
@@ -114,7 +125,7 @@ export default function Hero() {
             Based in
           </span>
           <span className="font-body text-[12px] font-medium tracking-wide text-secondary">
-            Bhubaneswar, India
+            {content.profile.location}
           </span>
         </div>
 
@@ -134,7 +145,7 @@ export default function Hero() {
             Status
           </span>
           <span className="font-body text-[12px] font-medium tracking-wide text-secondary">
-            Open to opportunities
+            {content.profile.status}
           </span>
         </div>
       </motion.div>

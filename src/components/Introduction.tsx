@@ -1,13 +1,9 @@
 import { motion, useInView, useScroll, useSpring } from 'framer-motion';
 import { useRef } from 'react';
-
-const statementText = [
-  "I'm Naushin, an MCA postgraduate with a practical software development background.",
-  " My experience spans Python, AI/ML, computer vision, Flutter, Docker, networking, and industrial automation.",
-  " I enjoy working through ambiguous technical problems, understanding how systems fail, and turning those problems into working solutions.",
-];
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 export default function Introduction() {
+  const { content } = usePortfolioContent();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px' });
 
@@ -36,8 +32,11 @@ export default function Introduction() {
         </motion.div>
 
         <h2 className="font-display text-[clamp(2rem,5vw,4.5rem)] font-medium leading-[1.05] tracking-tightest text-primary text-balance">
-          <span className="block">I build, debug,</span>
-          <span className="block italic font-light text-accent">and learn.</span>
+          {content.profile.introductionTitle.split(' ').map((word, index) => (
+            <span key={word + index} className={index === content.profile.introductionTitle.split(' ').length - 1 ? 'italic font-light text-accent' : 'block'}>
+              {word}{' '}
+            </span>
+          ))}
         </h2>
 
         <motion.div
@@ -47,7 +46,7 @@ export default function Introduction() {
 
         <div className="mt-12 max-w-3xl">
           <p className="font-display text-[clamp(1.25rem,2.5vw,2rem)] font-light leading-[1.4] tracking-tight text-primary text-balance">
-            {statementText.map((segment, i) => (
+            {content.profile.introductionBody.map((segment, i) => (
               <motion.span
                 key={i}
                 initial={{ opacity: 0.15 }}

@@ -1,5 +1,6 @@
 import ScrollReveal from './ScrollReveal';
 import SectionLabel from './SectionLabel';
+import { usePortfolioContent } from '../lib/PortfolioProvider';
 
 const certifications = [
   {
@@ -21,6 +22,8 @@ const certifications = [
 ];
 
 export default function CertificationSection() {
+  const { content } = usePortfolioContent();
+  const visibleCertifications = content.certifications;
   return (
     <section id="certifications" className="px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-editorial">
@@ -36,7 +39,7 @@ export default function CertificationSection() {
         </ScrollReveal>
 
         <div className="space-y-0">
-          {certifications.map((cert, i) => (
+          {visibleCertifications.map((cert, i) => (
             <ScrollReveal key={cert.name} delay={i * 0.08}>
               <div className="group grid grid-cols-1 gap-4 border-t border-border py-8 transition-colors duration-300 hover:border-border-hover md:grid-cols-12 md:gap-10">
                 <div className="md:col-span-1">
@@ -55,7 +58,7 @@ export default function CertificationSection() {
                   </p>
                 </div>
               </div>
-              {i === certifications.length - 1 && (
+              {i === visibleCertifications.length - 1 && (
                 <div className="border-b border-border" />
               )}
             </ScrollReveal>
